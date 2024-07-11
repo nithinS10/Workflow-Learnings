@@ -27,8 +27,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo $GITHUB_TOKEN
           curl -X POST \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/nithinS10/Workflow-Learnings/.github/workflows/workflow-b.yml/dispatches \
+            https://github.com/nithinS10/Workflow-Learnings/.github/workflows/workflow-b.yml/dispatches \
             -d '{"ref":"main", "inputs": {"example_parameter": "${{ steps.set_output.outputs.example_parameter }}", "from_workflow_a": "true"}}'
