@@ -1,23 +1,14 @@
-# .github/workflows/workflow-a.yml
-
-name: Workflow A for testing
+name: Workflow A
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  triggerWorkflowB:
+  job1:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Trigger Workflow B via API
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/your-username/your-repo/actions/workflows/workflow-b.yml/dispatches \
-            -d '{"ref":"main", "inputs": {"parameter1": "value"}}'
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run some steps
+        run: echo "This is Workflow A"
