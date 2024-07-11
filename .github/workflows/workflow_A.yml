@@ -3,11 +3,12 @@
 name: Workflow A
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
+      example_parameter:
+        description: 'An example input parameter'
+        required: true
+        default: 'default_value'
       from_workflow_b:
         description: 'Triggered from Workflow B'
         required: false
@@ -17,13 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set output
         id: set_output
-        run: echo "::set-output name=example_parameter::$(date +%Y-%m-%d)"
-
+        run: echo "::set-output name=example_parameter::${{ github.event.inputs.example_parameter }}"
+        
       - name: Trigger Workflow B via API
         if: ${{ github.event.inputs.from_workflow_b != 'true' }}
         env:
