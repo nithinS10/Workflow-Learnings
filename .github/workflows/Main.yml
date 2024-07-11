@@ -1,0 +1,42 @@
+name: Main Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-workflow-a:
+    name: Trigger Workflow A
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Workflow A
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const { Octokit } = require("@octokit/core");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+            await octokit.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
+              owner: 'your-username',
+              repo: 'your-repo',
+              workflow_id: 'workflow-a.yml',
+              ref: 'main'
+            });
+
+  trigger-workflow-b:
+    name: Trigger Workflow B
+    runs-on: ubuntu-latest
+    needs: trigger-workflow-a
+    steps:
+      - name: Call Workflow B
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const { Octokit } = require("@octokit/core");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+            await octokit.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
+              owner: 'your-username',
+              repo: 'your-repo',
+              workflow_id: 'workflow-b.yml',
+              ref: 'main'
+            });
