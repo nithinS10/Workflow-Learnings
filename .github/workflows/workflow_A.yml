@@ -1,6 +1,6 @@
 # .github/workflows/workflow-a.yml
 
-name: Workflow A
+name: Workflow A Testing
 
 on:
   workflow_dispatch:
