@@ -6,6 +6,6 @@ on:
 
 jobs:
   call_reusable_workflow:
-    uses: nithinS10/simple-java-maven-app/.github/workflows/reusable-workflow.yml@main
+    uses: nithinS10/simple-java-maven-app/.github/workflows/reusable-workflow.yml@master
     with:
       message: "Hello from repo2!"
