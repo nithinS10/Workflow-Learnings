@@ -1,9 +1,23 @@
-name: Consumer Workflow
+name: Consumer AEH Management
 
 on:
   push:
     branches:
       - main 
+  workflow_dispatch:
+    inputs:
+      resource_group:
+        description: 'Resource Group Name'
+        required: true
+      project_name:
+        description: 'Project Name'
+        required: true
+      aeh_name:
+        description: 'AEH Name'
+        required: true
+      uaim:
+        description: 'UAIM Hexadecimal Number'
+        required: true
 
 jobs:
   aeh_access:
@@ -12,20 +26,20 @@ jobs:
     steps:
       - name: AEH Access Request
         run: |
-          echo "Accessing AEH ${INPUT_AEH_NAME} in ${INPUT_RESOURCE_GROUP} for project ${INPUT_PROJECT_NAME} with UAIM ${INPUT_UAIM}"
-
-  create_aeh_within_specific_project:
+          echo "Enabling access to AEH '${{ github.event.inputs.aeh_name }}' in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'
+          
+  create_aeh_within_project:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.uaim && !github.event.inputs.aeh_name
     runs-on: ubuntu-latest
     steps:
       - name: Create AEH within Specific Project
         run: |
-          echo "Creating AEH in ${INPUT_RESOURCE_GROUP} for project ${INPUT_PROJECT_NAME} with UAIM ${INPUT_UAIM}"
-          
-  create_aeh_without_projectname:
+          echo "Creating AEH in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'"
+     
+  create_aeh_without_project:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.uaim && !github.event.inputs.project_name && !github.event.inputs.aeh_name
     runs-on: ubuntu-latest
     steps:
       - name: Create AEH without Project Name
         run: |
-          echo "Creating AEH in ${INPUT_RESOURCE_GROUP} with shared namespace using UAIM ${INPUT_UAIM}"
+          echo "Creating AEH in '${{ github.event.inputs.resource_group }}' with shared namespace using UAIM '${{ github.event.inputs.uaim }}'"
