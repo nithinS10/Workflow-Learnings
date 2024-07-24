@@ -8,16 +8,16 @@ on:
     inputs:
       resource_group:
         description: 'Resource Group Name'
-        required: true
+        required: false
       project_name:
         description: 'Project Name'
-        required: true
+        required: false
       aeh_name:
         description: 'AEH Name'
-        required: true
+        required: false
       uaim:
         description: 'UAIM Hexadecimal Number'
-        required: true
+        required: false
 
 jobs:
   aeh_access:
