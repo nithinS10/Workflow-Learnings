@@ -21,7 +21,7 @@ on:
 
 jobs:
   aeh_access:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.aeh_name && github.event.inputs.uaim
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.aeh_name && github.event.inputs.uaim
     runs-on: ubuntu-latest
     steps:
       - name: AEH Access Request
@@ -29,7 +29,7 @@ jobs:
           echo "Enabling access to AEH '${{ github.event.inputs.aeh_name }}' in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'
           
   create_aeh_within_project:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.uaim && !github.event.inputs.aeh_name
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.uaim && !github.event.inputs.aeh_name
     runs-on: ubuntu-latest
     steps:
       - name: Create AEH within Specific Project
@@ -37,7 +37,7 @@ jobs:
           echo "Creating AEH in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'"
      
   create_aeh_without_project:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.uaim && !github.event.inputs.project_name && !github.event.inputs.aeh_name
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.uaim && !github.event.inputs.project_name && !github.event.inputs.aeh_name
     runs-on: ubuntu-latest
     steps:
       - name: Create AEH without Project Name
