@@ -24,6 +24,14 @@ jobs:
     # if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.aeh_name && github.event.inputs.uaim
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Inputs
+        run: |
+          echo "Inputs:"
+          echo "Resource Group: ${{ github.event.inputs.resource_group }}"
+          echo "Project Name: ${{ github.event.inputs.project_name }}"
+          echo "AEH Name: ${{ github.event.inputs.aeh_name }}"
+          echo "UAIM: ${{ github.event.inputs.uaim }}"
+
       - name: AEH Access Request
         run: |
           echo "Enabling access to AEH '${{ github.event.inputs.aeh_name }}' in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'
