@@ -34,7 +34,7 @@ jobs:
 
       - name: AEH Access Request
         run: |
-          echo "Enabling access to AEH '${{ github.event.inputs.aeh_name }}' in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'
+          echo "Enabling access to AEH '${{ github.event.inputs.aeh_name }}' in '${{ github.event.inputs.resource_group }}' for project '${{ github.event.inputs.project_name }}' with UAIM '${{ github.event.inputs.uaim }}'"
           
   create_aeh_within_project:
     # if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.inputs.resource_group && github.event.inputs.project_name && github.event.inputs.uaim && !github.event.inputs.aeh_name
